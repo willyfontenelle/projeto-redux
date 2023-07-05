@@ -41,7 +41,7 @@ export function Address() {
 
             {user && user?.address && (
               <button className={styles.buttonDelete} onClick={handleDeleteAddress}>
-                Deletar endereço
+                  Deletar endereço
             </button>
             )}
           </div>
