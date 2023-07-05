@@ -2,12 +2,13 @@ import styles from './home.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
-import { useSelector, useDispatch  } from 'react-redux'
-import { deleteAddress, fetchUsers } from '../../redux/user/slice'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteAddress, fetchUsers, fetchUserById } from '../../redux/user/slice'
 
 export function Home() {
-  const { user, users, loading } = useSelector((rootReducer) => rootReducer.user);
+  const { user, users, loading } = useSelector((rootReducer) => rootReducer.user)
   const dispatch = useDispatch();
+
 
   function handleDeleteAddress(){
     dispatch(deleteAddress())
@@ -18,9 +19,16 @@ export function Home() {
     dispatch(fetchUsers())
   }
 
+  function handleFetchUserById(){
+    const userId = 8;
+
+    dispatch(fetchUserById(userId))
+  }
+
   return (
     <>
     <Header/>
+    
       <div className={styles.container}>
         <nav className={styles.nav}>
           <Link to="/" className={styles.link}>
@@ -37,21 +45,22 @@ export function Home() {
         <main className={styles.content}>
           <div className={styles.message}>
             <h1 className={styles.title}>
-              Olá { user ? user.name : "Visitante" }, bem vindo!
+              Olá {user ? user.name : "Visitante"}, bem vindo!
             </h1>
 
             { user && (
               <span>Email: {user.email}</span>
             )}
 
+
             { user && user.address && (
               <>
-              <strong className={styles.addressLabel}>Endereço atual:</strong>
-              <div className={styles.address}>
-                <p>{user.address.location}, n {user.address.number}</p>
-                
-                <button onClick={handleDeleteAddress}>Deletar endereço</button>
-              </div>
+                <strong className={styles.addressLabel}>Endereço atual:</strong>
+                <div className={styles.address}>
+                  <p>{user.address.location}, n {user.address.number}</p>
+                  
+                  <button onClick={handleDeleteAddress}>Deletar endereço</button>
+                </div>
               </>
             )}
 
@@ -60,13 +69,15 @@ export function Home() {
 
             <h2>Lista de usuários</h2>
             <button onClick={handleFetchUsers}>Buscar usuários</button>
+            <button onClick={handleFetchUserById}>Buscar usuário com ID</button>
             <br/>
-            
+
+
             {loading && <strong>Carregando usuários...</strong> }
-            
+
             {!loading && users.map( (user) => (
               <div key={user.id}>
-                <p>ID: {user.id} | Nome do usuário: {user.name}</p>
+                <p>ID: {user.id} | {user.name}</p>
               </div>
             ))}
 

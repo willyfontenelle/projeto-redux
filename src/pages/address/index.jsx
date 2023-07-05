@@ -8,11 +8,11 @@ import { addAddress, deleteAddress } from '../../redux/user/slice'
 
 export function Address() {
   const dispatch = useDispatch();
-
   const { user } = useSelector((rootReducer) => rootReducer.user)
 
   const [addressName, setAddressName] = useState(user?.address?.location ?? "")
   const [addressNumber, setAddressNumber] = useState(user?.address?.number ?? "")
+
 
   function handleRegisterAddress(){
     dispatch(addAddress({
@@ -21,10 +21,12 @@ export function Address() {
     }))
   }
 
+
   function handleDeleteAddress(){
     dispatch(deleteAddress())
     setAddressName("")
     setAddressNumber("")
+
     alert("Deletado com sucesso!")
   }
 
@@ -41,8 +43,8 @@ export function Address() {
 
             {user && user?.address && (
               <button className={styles.buttonDelete} onClick={handleDeleteAddress}>
-                  Deletar endereço
-            </button>
+                Deletar endereço!
+              </button>
             )}
           </div>
 

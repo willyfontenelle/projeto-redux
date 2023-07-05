@@ -1,8 +1,8 @@
 import { useState } from 'react'; 
 import styles from './login.module.css'
 
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate  } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { createUser } from '../../redux/user/slice'
 
 export function Login() {
@@ -14,12 +14,12 @@ export function Login() {
 
   function handleLogin(e){
     e.preventDefault()
-    
+
     if(name === '' || email === ''){
-      alert("Digite os dados do usuário");
+      alert("DIGITE OS DADOS DO USUARIO!")
       return;
     }
-
+    
     dispatch(createUser({
       name: name,
       email: email,
